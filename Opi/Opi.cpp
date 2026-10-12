@@ -8,7 +8,8 @@
 #include <limits>//для cin.ignore(
 
 #include <windows.h>
-#include <iomanip>
+#include <iomanip>  // setw, setfill, left, fixed, setprecision
+#include <sstream>  // ostringstream для форматування ціни
 
 using namespace std;
 
@@ -26,7 +27,10 @@ struct Account {
 };
 
 
-vector<Account> dbAccount;
+vector<Account> dbAccount = {
+	{1, "Лока", 123},
+	{2, "sof", 123},
+};
 
 vector<Products> db = {
 	{1, "Футболка", 500.0 , 10},
@@ -37,25 +41,61 @@ vector<Products> db = {
 
 int idUser =-1;
 
-void goodsList(const vector<Products>& db) {
-	for (const Products& p : db) {
-		cout << "ID: " << p.id
-			<< " | " << p.name
-			<< " | Ціна: " << p.price
-			<< " | В наявності: " << p.quantity << '\n';
+void printLine (const vector<int>& widths) {
+	int total = 1;
+	for (int w : widths) {
+		total += w +2 ;
 	}
+	cout << setfill('-') << setw(total) << "" << setfill(' ') << '\n';
+}
+//це розмір рядка та значення які будут записуватися в кожному рядку 
+void printRow(const vector<string>& value , const vector<int>& widths) {
+	cout << left;
+	for (int i = 0; i < value.size(); i++) {
+		cout << "| " << setw(widths[i]) << value[i];
+	}
+	cout << endl;
+}
+
+// самий вівід таблиці 
+void printTable(const vector<string>& headers, 
+	const vector<int>& widths,
+	const vector<vector<string>>& rows) {
+	printLine(widths);
+	printRow(headers, widths);   // заголовок — такий самий рядок
+	printLine(widths);
+	for (const vector<string>& row : rows) {
+		printRow(row, widths);
+	}
+	printLine(widths);
+}
+
+vector<string> productToRow(const Products& p) {
+	return{ to_string(p.id), p.name, to_string(p.price), to_string(p.quantity) };
+}
+
+vector<string> accountToRow(const Account& a) {
+	return{ a.login, to_string(a.password) };
+}
+
+
+void goodsList(const vector<Products>& db) {
+	vector<vector<string>> rows;//створємо локальний двовирірний масив для побудови таблиці
+	for (const Products& p : db) {
+		rows.push_back(productToRow(p));
+	}
+	printTable({ "ID", "Назва", "Ціна", "В наявності" }, { 3, 13, 12, 11 }, rows);
 }
 
 void searchProductsQuantity(const vector<Products>& db) {
+	vector<vector<string>> rows;
 	for (const Products& p : db) {
 		if (p.quantity > 0) {
-			cout << "ID: " << p.id
-				<< " | " << p.name
-				<< " | Ціна: " << p.price
-				<< " | В наявності: " << p.quantity << '\n';
+			rows.push_back(productToRow(p));
 		}
-	
 	}
+	printTable({ "ID", "Назва", "Ціна", "В наявності" }, { 3, 13, 12, 11 }, rows);
+
 }
 
 int createAccount(vector<Account>& dbAccount) {
@@ -134,19 +174,21 @@ int exitAccount(const vector<Account>& dbAccount) {
 	return currentUserId;
 }
 
-void showAccount(const vector<Account>& dbAccount) {
+void showAccount(const int idUser) {
+	vector<vector<string>> rows;
 	for (const Account& a : dbAccount) {
-		cout
-			<< " | Логін" << a.id
-			<< " | Пароль: " << a.password;
-
+		if (a.id == idUser) {
+			rows.push_back(accountToRow(a));
+		}
+		
 	}
+	printTable({ "ID", "Login" }, { 5,20 }, rows);
 }
 
 int  account() {
 	if (idUser != -1) {
 		cout << "Ви війшли в акаунт!!" << endl;
-		showAccount(dbAccount);
+		showAccount(idUser);
 		system("pause");
 	}
 	else {
@@ -194,6 +236,7 @@ int main()
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
 	int numberTask = 0;
+	
 	do {
 		tasksList();
 		cout << "Обери дію: ";
