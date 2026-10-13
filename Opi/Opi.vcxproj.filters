@@ -27,6 +27,12 @@
     <ClCompile Include="table.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="product.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data.h">
@@ -36,6 +42,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="table.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="product.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

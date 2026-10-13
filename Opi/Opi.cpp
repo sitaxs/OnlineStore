@@ -5,35 +5,17 @@
 #include "table.h"
 #include "acount.h"
 #include "data.h"
+#include "product.h"
+#include "cart.h"
 
 
 using namespace std;
 
 
-void goodsList(const vector<Products>& db) {
-	vector<vector<string>> rows;//створємо локальний двовирірний масив для побудови таблиці
-	for (const Products& p : db) {
-		rows.push_back(productToRow(p));
-	}
-	printTable({ "ID", "Назва", "Ціна", "В наявності" }, { 3, 13, 12, 11 }, rows);
-}
-
-void searchProductsQuantity(const vector<Products>& db) {
-	vector<vector<string>> rows;
-	for (const Products& p : db) {
-		if (p.quantity > 0) {
-			rows.push_back(productToRow(p));
-		}
-	}
-	printTable({ "ID", "Назва", "Ціна", "В наявності" }, { 3, 13, 12, 11 }, rows);
-
-}
-
-
 void tasksList() {
 	cout << "(1) Виведи весь товар" << endl;
 	cout << "(2) Товар, що в наявності" << endl;
-	cout << "(3) Купити товар" << endl;
+	cout << "(3) Добавити товар до кошику" << endl;
 	cout << "(4) Кошик" << endl;
 	cout << "(5) Мої замовлення" << endl;
 	cout << "(6) Акаунт (вхід / реєстрація)" << endl;
@@ -45,9 +27,9 @@ void tasksList() {
 
 int main()
 {
-	
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
+	int idUser = -1;
 	int numberTask = 0;
 	
 	do {
@@ -64,10 +46,15 @@ int main()
 			searchProductsQuantity(db);
 			break;
 		case 3:
-			account();
-			system("pause");
+
+			system("cls");
+			showProductForChoose(db, dbCart, idUser);
+			system("cls");
 			break;
 		case 4:
+			system("cls");
+			basket(idUser);
+			system("pause");
 			break;
 
 		case 5:
@@ -75,7 +62,7 @@ int main()
 			
 			break;
 		case 6: 
-			account();
+			idUser = account();
 			break;
 
 		

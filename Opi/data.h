@@ -13,10 +13,10 @@
 using namespace std;
 
 struct  Products {
-	int id;
+	int id = 0 ;
 	string  name;
-	double price;
-	int quantity;
+	double price = 0;
+	int quantity  = 0;
 };
 
 struct Account {
@@ -25,9 +25,19 @@ struct Account {
 	int password = 0;
 };
 
+struct Cart {
+	int id = 0;
+	int idUser =0 ;
+	int idProduct =0;
+	int quantity = 0;
+};
+
+
 extern vector<Products> db;
 extern vector<Account> dbAccount;
+extern vector<Cart> dbCart;
 extern int idUser;
 extern vector<string> productToRow(const Products& p);
 extern vector<string> accountToRow(const Account& a);
+extern vector<string> cartToRow(const Cart& c);
 // дані снують в інших файлах

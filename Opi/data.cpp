@@ -19,6 +19,7 @@ vector<Products> db = {
 	{4, "Куртки", 3000.0 , 0},
 };
 
+vector<Cart> dbCart;
 
 //Перевторення масирів в масив рядком 
 vector<string> productToRow(const Products& p) {
@@ -27,4 +28,9 @@ vector<string> productToRow(const Products& p) {
 
 vector<string> accountToRow(const Account& a) {
 	return{ a.login, to_string(a.password) };
+}
+
+
+vector<string> cartToRow(const Cart& c) {
+	return { to_string(c.id), to_string(c.idUser), to_string(c.idProduct), to_string(c.quantity) };
 }
