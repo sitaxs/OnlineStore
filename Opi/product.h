@@ -1,5 +1,5 @@
 #pragma once
-#include "data.h "
+#include "data.h"
 
 
 void goodsList(const vector<Products>& db);

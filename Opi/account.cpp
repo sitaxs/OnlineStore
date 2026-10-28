@@ -15,8 +15,20 @@ int createAccount(vector<Account>& dbAccount) {
 		//переглядає останній елемент в масиві 
 	}
 
-	cout << "Ім'я = ";
-	cin >> addNewAccont.login;
+	bool isBusy = false;
+	// перевірка аби логін не був зайнятий
+	do {
+		cout << "Ім'я = ";
+		cin >> addNewAccont.login;
+		isBusy = false;
+		for (const Account& a : dbAccount) {
+			if (a.login == addNewAccont.login) {
+				isBusy = true;
+				cout << "Такий логін вже зайнятий" << endl;
+				break;
+			}
+		}
+	} while (isBusy);
 
 	bool isError = false;
 	// первірка аби пароль був цифри 
@@ -56,8 +68,7 @@ int exitAccount(const vector<Account>& dbAccount) {
 				bool rightPassword;
 				rightLogin = false;
 				do {
-					cout << "Введіть пароль: ";
-					cin >> searchPassword;
+					searchPassword = inputNumber("Введіть пароль: ");
 					if (searchPassword == a.password) {
 						currentUserId = a.id;
 						cout << "Все успішно, ви ввійшли в акаунт!!" << endl;
@@ -96,7 +107,16 @@ int  account() {
 	if (idUser != -1) {
 		cout << "Ви війшли в акаунт!!" << endl;
 		showAccount(idUser);
-		system("pause");
+		int numberChoose = 0;
+		cout << "(1) Вийти з акаунта" << endl;
+		cout << "(0) Назад" << endl;
+
+		numberChoose = inputNumber("Оберіть варіант: ");
+		if (numberChoose == 1) {
+			idUser = -1; // кошик зберігається за id, тому після входу він повернеться
+			cout << "Ви вийшли з акаунта" << endl;
+			system("pause");
+		}
 	}
 	else {
 		cout << "Ви не є зареєстоварні в системі." << endl;
@@ -105,16 +125,17 @@ int  account() {
 		cout << "(2) Реєстрація" << endl;
 		cout << "(3) Назад " << endl;
 
-		cout << "Оберіть варіант: ";
-		cin >> numberChoose;
+		numberChoose = inputNumber("Оберіть варіант: ");
 		switch (numberChoose)
 		{
 		case 1:
 			idUser = exitAccount(dbAccount);
+			system("pause");
 			break;
 
 		case 2:
 			idUser = createAccount(dbAccount);
+			system("pause");
 			break;
 		case 3:
 			system("cls");

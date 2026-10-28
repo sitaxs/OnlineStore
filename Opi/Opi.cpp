@@ -29,48 +29,58 @@ int main()
 {
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
-	int idUser = -1;
 	int numberTask = 0;
-	
+
 	do {
+		system("cls");
 		tasksList();
-		cout << "Обери дію: ";
-		cin >> numberTask;
+		numberTask = inputNumber("Обери дію: ");
 		switch (numberTask)
 		{
 		case 1:
+			system("cls");
 			goodsList(db);
-			//system("pause");
+			system("pause");
 			break;
 		case 2:
+			system("cls");
 			searchProductsQuantity(db);
+			system("pause");
 			break;
 		case 3:
 
 			system("cls");
 			showProductForChoose(db, dbCart, idUser);
-			system("cls");
 			break;
 		case 4:
 			system("cls");
 			basket(idUser);
-			system("pause");
 			break;
 
 		case 5:
-		
-			
+			system("cls");
+			showOrders(dbOrder, idUser, db);
+			system("pause");
 			break;
-		case 6: 
+		case 6:
+			system("cls");
 			idUser = account();
 			break;
+		case 7:
+			cout << "Адмінка ще в розробці" << endl;
+			system("pause");
+			break;
+		case 8:
+			cout << "До побачення!" << endl;
+			break;
 
-		
 		default:
+			cout << "Такої дії немає" << endl;
+			system("pause");
 			break;
 		}
-	} while (numberTask > 0);
-	
+	} while (numberTask != 8);
 
-    return 0;
+
+	return 0;
 }

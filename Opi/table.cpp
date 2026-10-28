@@ -1,5 +1,3 @@
-
-
 #include"table.h"
 
 void printLine(const vector<int>& widths) {
@@ -15,7 +13,7 @@ void printRow(const vector<string>& value, const vector<int>& widths) {
 	for (int i = 0; i < value.size(); i++) {
 		cout << "| " << setw(widths[i]) << value[i];
 	}
-	cout << endl;
+	cout << "|" << endl;
 }
 
 // самий вівід таблиці 

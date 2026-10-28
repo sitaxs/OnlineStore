@@ -1,4 +1,4 @@
-//Запис у веторах 
+//Запис у веторах
 
 #include"data.h"
 
@@ -21,13 +21,39 @@ vector<Products> db = {
 
 vector<Cart> dbCart;
 
-//Перевторення масирів в масив рядком 
+vector<Order> dbOrder;
+
+// форматування ціни: 500 -> 500.00
+string priceToString(double price) {
+	ostringstream out;
+	out << fixed << setprecision(2) << price;
+	return out.str();
+}
+
+// введення числа з перевіркою, поки не введуть число
+int inputNumber(const string& text) {
+	int number = 0;
+	bool isError = false;
+	do {
+		cout << text;
+		cin >> number;
+		isError = cin.fail();
+		if (isError) {
+			cin.clear();
+			cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+			cout << "Потрібно ввести число" << endl;
+		}
+	} while (isError);
+	return number;
+}
+
+//Перевторення масирів в масив рядком
 vector<string> productToRow(const Products& p) {
-	return{ to_string(p.id), p.name, to_string(p.price), to_string(p.quantity) };
+	return{ to_string(p.id), p.name, priceToString(p.price), to_string(p.quantity) };
 }
 
 vector<string> accountToRow(const Account& a) {
-	return{ a.login, to_string(a.password) };
+	return{ to_string(a.id), a.login };
 }
 
 
