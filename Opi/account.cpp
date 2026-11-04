@@ -3,7 +3,8 @@
 
 using namespace std;
 
-
+// –еЇстрац≥€: створюЇ новий акаунт (ун≥кальний лог≥н + числовий пароль),
+// повертаЇ id нового користувача
 int createAccount(vector<Account>& dbAccount) {
 	Account addNewAccont;
 	if (dbAccount.empty()) {
@@ -49,6 +50,9 @@ int createAccount(vector<Account>& dbAccount) {
 }
 
 
+// ¬х≥д в акаунт: перев≥р€Ї лог≥н ≥ пароль,
+// повертаЇ id користувача або -1, €кщо акаунт≥в немаЇ
+
 int exitAccount(const vector<Account>& dbAccount) {
 	int currentUserId = -1;
 	if (dbAccount.empty()) {
@@ -91,7 +95,7 @@ int exitAccount(const vector<Account>& dbAccount) {
 
 	return currentUserId;
 }
-
+// ѕоказуЇ таблицю з даними поточного користувача (ID ≥ лог≥н)
 void showAccount(const int idUser) {
 	vector<vector<string>> rows;
 	for (const Account& a : dbAccount) {
@@ -103,6 +107,8 @@ void showAccount(const int idUser) {
 	printTable({ "ID", "Login" }, { 5,20 }, rows);
 }
 
+// ћеню акаунта: €кщо ув≥йшли Ч показ даних ≥ вих≥д,
+// €кщо н≥ Ч вх≥д або реЇстрац≥€; повертаЇ поточний idUser
 int  account() {
 	if (idUser != -1) {
 		cout << "¬и в≥йшли в акаунт!!" << endl;

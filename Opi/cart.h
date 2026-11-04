@@ -15,3 +15,5 @@ void clearCart(vector<Cart>& dbCart, int idUser);
 void makeOrder(vector<Cart>& dbCart, vector<Order>& dbOrder, vector<Products>& db, int idUser);
 vector<string> orderToRow(const Order& o, const string& name);
 void showOrders(const vector<Order>& dbOrder, int idUser, const vector<Products>& db);
+void confirmOrder(vector<Order>& dbOrder, int numberOrder);
+void cancelOrder(vector<Order>& dbOrder, vector<Products>& db, int numberOrder);

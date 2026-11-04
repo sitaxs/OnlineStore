@@ -7,12 +7,35 @@
 #include "data.h"
 #include "product.h"
 #include "cart.h"
+#include "admin.h"
 
 
 using namespace std;
 
 
+// шапка головної сторінки: назва бренду та привітання
+void showHeader() {
+	cout << "==========================================" << endl;
+	cout << "               URBAN STYLE                " << endl;
+	cout << "         Інтернет-магазин одягу           " << endl;
+	cout << "==========================================" << endl;
+
+	if (idUser == -1) {
+		cout << "Вітаємо! Увійдіть в акаунт, щоб робити покупки" << endl << endl;
+	}
+	else {
+		// шукаємо логін користувача, який увійшов
+		for (const Account& a : dbAccount) {
+			if (a.id == idUser) {
+				cout << "Вітаємо, " << a.login << "! Раді бачити вас знову" << endl << endl;
+				break;
+			}
+		}
+	}
+}
+
 void tasksList() {
+	showHeader();
 	cout << "(1) Виведи весь товар" << endl;
 	cout << "(2) Товар, що в наявності" << endl;
 	cout << "(3) Добавити товар до кошику" << endl;
@@ -67,8 +90,9 @@ int main()
 			idUser = account();
 			break;
 		case 7:
-			cout << "Адмінка ще в розробці" << endl;
-			system("pause");
+			// АДМІН: вхід у панель адміністратора
+			system("cls");
+			adminPanel();
 			break;
 		case 8:
 			cout << "До побачення!" << endl;

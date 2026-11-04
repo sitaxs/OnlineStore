@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="account.cpp" />
+    <ClCompile Include="admin.cpp" />
     <ClCompile Include="cart.cpp" />
     <ClCompile Include="Opi.cpp" />
     <ClCompile Include="data.cpp" />
@@ -148,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="acount.h" />
+    <ClInclude Include="admin.h" />
     <ClInclude Include="cart.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="product.h" />
